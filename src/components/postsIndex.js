@@ -6,15 +6,19 @@ import { Link } from 'react-router-dom';
 import { fetchPosts } from '../actions';
 
 class PostsIndex extends Component {
-
     componentDidMount() {
         this.props.fetchPosts();
     }
 
+    onPostClick(id) {
+        this.props.history.push(`/posts/${id}`);
+    }
+
     renderPosts() {
         return _.map(this.props.posts, post => {
+            const link=`/posts/${post.id}`;
             return (
-                <li key={post.id} className="list-group-item">
+                <li onClick={() => this.onPostClick(post.id)} key={post.id} className="list-group-item">
                     {post.title}
                 </li>
             )
